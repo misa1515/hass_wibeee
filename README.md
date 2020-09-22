@@ -1,4 +1,19 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+
 # Home Assistant: Wibeee Component
+[![wibeee_logo](https://wibeee.com/wp-content/uploads/2018/09/logo.png)
+
+## Installation
+
+Use [HACS](https://hacs.xyz) or follow the manual instructions below.
+
+### HACS
+Custom repository installation: 
+1. Open HACS
+2. Go to integrations
+3. On the top right corner, click on the 3 dots and select `Custom repositories`
+4. Add this repo URL `https://github.com/abacao/hass_wibeee` and select `Integration` as category.
+5. Install and follow the instructions of the manual installation from the 2nd bullet point onwards.
 
 This is a custom component developed original for its integration with Circuitor Wibeee (3 Phases)
 
@@ -24,7 +39,7 @@ http://<wibeee_ip>/en/status.xml
 
 Example XML are listed in hithub repository
 
-# Home Assistant configuration
+# Home Assistant manual installation
 
 1.- Clone repo into `<hass_folder>/custom_components`
 ```
@@ -137,6 +152,9 @@ Possible log levels: info, debug, warn, ...
 
 Home Assistant community
 https://community.home-assistant.io/t/new-integration-energy-monitoring-device-circutor-wibeee/45276
+
+Original creator for this integration
+https://github.com/juanjoSanz/hass_wibeee
 
 ## custom_components examples
 
