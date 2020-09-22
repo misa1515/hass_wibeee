@@ -3,6 +3,25 @@
 # Home Assistant: Wibeee Component
 [![wibeee_logo](https://wibeee.com/wp-content/uploads/2018/09/logo.png)
 
+This is a custom component developed original for its integration with Circuitor Wibeee (3 Phases)
+
+This concept has been proved on similar devices that are listed below:
+
+| Device        | Model           | Link  |
+| ------------- |:-------------:| -----:|
+|Circuitor Wibeee| 3 phases | http://wibeee.circutor.com/index_en.html |
+|Circuitor Wibeee| 1 phase |  http://wibeee.circutor.com/index_en.html  |
+|Mirubee| Unknown models |  https://mirubee.com/es/3-productos |
+
+# How it works
+
+Once the devices are installed and connected to local wireless network, current energy consumption values are exposed in xml format, the URL of the exposed web service is:
+
+`http://<wibeee_ip>/en/status.xml`
+
+Example XML are listed [here](https://github.com/abacao/hass_wibeee/tree/master/examples) in github repository
+
+
 ## Installation
 
 Use [HACS](https://hacs.xyz) or follow the manual instructions below.
@@ -14,30 +33,6 @@ Custom repository installation:
 3. On the top right corner, click on the 3 dots and select `Custom repositories`
 4. Add this repo URL `https://github.com/abacao/hass_wibeee` and select `Integration` as category.
 5. Install and follow the instructions of the manual installation from the 2nd bullet point onwards.
-
-This is a custom component developed original for its integration with Circuitor Wibeee (3 Phases)
-
-This concept has been proved on similar devices that are listed below:
-
-| Device        | Model           | Link  |
-| ------------- |:-------------:| -----:|
-|Circuitor Wibeee| 3 phases | http://wibeee.circutor.com/index_en.html |
-|Circuitor Wibeee| 1 phase |  http://wibeee.circutor.com/index_en.html  |
-|Mirubee| Unknown models |  https://mirubee.com/es/3-productos |
-
-## ToDo
-
-There is a new project in Github, a CLI in Python for these devices that may be helpful for future integrations of this custom component:
-https://github.com/fquinto/pywibeee
-
-
-# How it works
-
-Once the devices are installed and connected to local wireless network, current energy consumption values are exposed in xml format, the URL of the exposed web service is:
-
-http://<wibeee_ip>/en/status.xml
-
-Example XML are listed in hithub repository
 
 # Home Assistant manual installation
 
@@ -143,10 +138,12 @@ Possible log levels: info, debug, warn, ...
 
 # Example View in Home Assistant
 
-
 ![hass_view](https://community-home-assistant-assets.s3.dualstack.us-west-2.amazonaws.com/original/3X/8/4/84825f0d8c1653e37be87c0ed4fa68d4832c8bc0.png "Example View in Home Assistant")
 
+## ToDo
 
+There is a new project in Github, a CLI in Python for these devices that may be helpful for future integrations of this custom component:
+https://github.com/fquinto/pywibeee
 
 # Useful links
 
