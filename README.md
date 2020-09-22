@@ -138,7 +138,7 @@ Possible log levels: info, debug, warn, ...
 
 # Example View in Home Assistant
 
-![hass_view](https://community-home-assistant-assets.s3.dualstack.us-west-2.amazonaws.com/original/3X/8/4/84825f0d8c1653e37be87c0ed4fa68d4832c8bc0.png "Example View in Home Assistant")
+![hass_view](https://i.imgur.com/PL3Qr4L.png "Example View in Home Assistant")
 
 ## ToDo
 
