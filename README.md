@@ -1,7 +1,7 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 
 # Home Assistant: Wibeee Component
-[![wibeee_logo](https://wibeee.com/wp-content/uploads/2018/09/logo.png)
+![wibeee_logo](https://wibeee.com/wp-content/uploads/2018/09/logo.png)
 
 This is a custom component developed original for its integration with Circuitor Wibeee (3 Phases)
 
