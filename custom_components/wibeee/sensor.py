@@ -130,7 +130,6 @@ class WibeeeSensor(Entity):
         self._sensor_name = SENSOR_TYPES[sensor_name][0].replace(" ", "_")
         self._unit_of_measurement = SENSOR_TYPES[sensor_name][1]
         self._state = sensor_value
-        self._icon = None
 
     @property
     def name(self):
@@ -144,11 +143,6 @@ class WibeeeSensor(Entity):
         return self._state
 
     @property
-    def icon(self):
-        """Return the icon to use in the frontend, if any."""
-        return self._icon
-
-    @property
     def unit_of_measurement(self):
         """Return the unit the value is expressed in."""
         return self._unit_of_measurement
@@ -157,17 +151,6 @@ class WibeeeSensor(Entity):
     def should_poll(self):
         """No polling needed."""
         return False
-
-    @property
-    def device_state_attributes(self):
-        """Return the state attributes."""
-        state_attr = {ATTR_ATTRIBUTION: ATTRIBUTION}
-        return state_attr
-
-    @property
-    def unique_id(self) -> str:
-        """Return a unique ID."""
-        return 
 
 
 class WibeeeData(object):
