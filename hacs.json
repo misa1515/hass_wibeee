@@ -1,4 +1,6 @@
 {
-    "name": "CIRCUTOR WiBeee (and Mirubee) energy monitor integration",
-    "render_readme": true
+    "name": "Wibeee (and Mirubee) energy monitor",
+    "render_readme": true,
+    "zip_release": true,
+    "filename": "hass_wibee.zip"
 }
