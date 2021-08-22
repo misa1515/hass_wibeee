@@ -2,9 +2,9 @@
   "domain": "wibeee",
   "name": "wibeee",
   "version": "1.0",
-  "documentation": "https://github.com/abacao/hass_wibeee",
-  "issue_tracker": "https://github.com/abacao/hass_wibeee/issues",
+  "documentation": "https://github.com/luuuis/hass_wibeee",
+  "issue_tracker": "https://github.com/luuuis/hass_wibeee/issues",
   "dependencies": [],
-  "codeowners": ["@abacao"],
+  "codeowners": ["@luuuis"],
   "requirements": []
 }
