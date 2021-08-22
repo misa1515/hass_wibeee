@@ -33,14 +33,14 @@ Custom repository installation:
 4. Add this repo URL `https://github.com/luuuis/hass_wibeee` and select `Integration` as the category.
 5. Install and follow the Home Assistant Configuration instructions below.
 
-# Home Assistant manual installation
+### Manual installation
 
 1. Clone repo into `<hass_folder>/custom_components`
 ```
 git clone https://github.com/luuuis/hass_wibeee.git <hass_folder>/custom_components/wibeee
 ```
 
-# Home Assistant Configuration
+# Configuration
 1. Add device to home assistant configuration file configuration.yaml
 
 ```
