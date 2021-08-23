@@ -35,9 +35,10 @@ Custom repository installation:
 
 ### Manual installation
 
-1. Clone repo into `<hass_folder>/custom_components`
+1. Download `hass_wibeee.zip` from https://github.com/luuuis/hass_wibeee/releases/latest
+2. Unzip into `<hass_folder>/custom_components`
 ```
-git clone https://github.com/luuuis/hass_wibeee.git <hass_folder>/custom_components/wibeee
+unzip hass_wibeee.zip -d <hass_folder>/custom_components/wibeee
 ```
 
 # Configuration
