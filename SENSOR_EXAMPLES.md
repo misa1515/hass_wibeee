@@ -36,7 +36,7 @@ sensor:
         unit_of_measurement: 'W'
         value_template: "{{ states('sensor.grid_import_export_power') | float | max(0) | round(0) }}"
       grid_export_power:
-        friendly_name: "Grid export power
+        friendly_name: "Grid export power"
         device_class: power
         unit_of_measurement: 'W'
         value_template: "{{ states('sensor.grid_import_export_power') | float | min(0) | abs | round(0) }}"
