@@ -59,9 +59,10 @@ sensor:
 - platform: wibeee
   host: 192.168.xx.xx # use static IP
 ```
- 
+
 Optionally, configure extra template sensors for grid consumption and feed-in to use
-with [Home Energy Management](https://www.home-assistant.io/home-energy-management/). 
+with [Home Energy Management](https://www.home-assistant.io/home-energy-management/). See [SENSOR_EXAMPLES.md](./SENSOR_EXAMPLES.md)
+for suggested sensors that will help you get the most out of the integration.  
 
 # Example View in Home Assistant
 
