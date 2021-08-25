@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/luuuis/hass_wibeee/compare/v2.1.0...v2.2.0) (2021-08-25)
+
+
+### Features
+
+* add scan_interval support to allow this to be user-configured ([#6](https://github.com/luuuis/hass_wibeee/issues/6)) ([34f4019](https://github.com/luuuis/hass_wibeee/commit/34f401923d389f17f3c8b35ce3b72308a0b26e27))
+
 ## [2.1.0](https://github.com/luuuis/hass_wibeee/compare/v2.0.0...v2.1.0) (2021-08-24)
 
 
