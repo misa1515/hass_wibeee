@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.2](https://github.com/luuuis/hass_wibeee/compare/v2.2.1...v2.2.2) (2021-08-28)
+
+
+### Bug Fixes
+
+* retry failed requests with exponential backoff ([#9](https://github.com/luuuis/hass_wibeee/issues/9)) ([2fa3e6c](https://github.com/luuuis/hass_wibeee/commit/2fa3e6c3a8c0ca0dc3e395b5cd1b5037949f2acf))
+
 ### [2.2.1](https://github.com/luuuis/hass_wibeee/compare/v2.2.0...v2.2.1) (2021-08-25)
 
 
