@@ -13,17 +13,17 @@ Provides the following sensors, one for each phase (`Phase1` shown below).
 
 | Sensor                                     | Unit  | Description       |
 | -------------------------------------------|:------:|------------------|
-| `wibeee_Phase1_active_energy`              | Wh    | Active Energy |
-| `wibeee_Phase1_active_power`               | W     | Active Power |
-| `wibeee_Phase1_apparent_power`             | VA    | Apparent Power |
-| `wibeee_Phase1_capacitive_reactive_energy` | VArCh | Capacitive Reactive Energy |
-| `wibeee_Phase1_capacitive_reactive_power`  | VArC  | Capacitive Reactive Power |
-| `wibeee_Phase1_frequency`                  | Hz    | Frequency |
-| `wibeee_Phase1_inductive_reactive_energy`  | VArLh | Inductive Reactive Energy |
-| `wibeee_Phase1_inductive_reactive_power`   | VArL  | Inductive Reactive Power |
-| `wibeee_Phase1_irms`                       | A     | Current |
-| `wibeee_Phase1_power_factor`               | PF    | Power Factor |
-| `wibeee_Phase1_vrms`                       | V     | Phase Voltage |
+| `wibeee_phase1_active_energy`              | Wh    | Active Energy |
+| `wibeee_phase1_active_power`               | W     | Active Power |
+| `wibeee_phase1_apparent_power`             | VA    | Apparent Power |
+| `wibeee_phase1_capacitive_reactive_energy` | VArCh | Capacitive Reactive Energy |
+| `wibeee_phase1_capacitive_reactive_power`  | VArC  | Capacitive Reactive Power |
+| `wibeee_phase1_frequency`                  | Hz    | Frequency |
+| `wibeee_phase1_inductive_reactive_energy`  | VArLh | Inductive Reactive Energy |
+| `wibeee_phase1_inductive_reactive_power`   | VArL  | Inductive Reactive Power |
+| `wibeee_phase1_irms`                       | A     | Current |
+| `wibeee_phase1_power_factor`               | PF    | Power Factor |
+| `wibeee_phase1_vrms`                       | V     | Phase Voltage |
 
 In three-phased devices `Phase4` sensors contain the total readings across all three phases.
 
