@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.3](https://github.com/luuuis/hass_wibeee/compare/v2.2.2...v2.2.3) (2021-08-31)
+
+
+### Bug Fixes
+
+* make sensors unavailable on status.xml error ([#10](https://github.com/luuuis/hass_wibeee/issues/10)) ([79dc987](https://github.com/luuuis/hass_wibeee/commit/79dc987ec24cfe75d2c254584703e79a82866120))
+
 ### [2.2.2](https://github.com/luuuis/hass_wibeee/compare/v2.2.1...v2.2.2) (2021-08-28)
 
 
