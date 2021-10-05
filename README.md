@@ -57,7 +57,7 @@ of the energy monitor on your network.
 sensor:
 - platform: wibeee
   host: 192.168.xx.xx # use static IP
-  scan_interval: 5    # optional, defaults to 15 seconds
+  scan_interval: 15   # optional, defaults to 15 seconds
 ```
 
 Optionally, configure extra template sensors for grid consumption and feed-in to use
