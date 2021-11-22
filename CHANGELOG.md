@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.0](https://github.com/luuuis/hass_wibeee/compare/v2.2.3...v3.0.0-beta.0) (2021-11-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* sets `unique_id` on entities, which causes HA to create new entities. Opt out by using `unique_id: false` on the integration.
+
+### Features
+
+* generate entity unique_id from MAC address ([#12](https://github.com/luuuis/hass_wibeee/issues/12)) ([1f8b966](https://github.com/luuuis/hass_wibeee/commit/1f8b966612b3acfb296acde5975fd96d66f3ce9b))
+
 ### [2.2.3](https://github.com/luuuis/hass_wibeee/compare/v2.2.2...v2.2.3) (2021-08-31)
 
 
