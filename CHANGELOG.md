@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.2](https://github.com/luuuis/hass_wibeee/compare/v2.2.3...v3.0.0-beta.2) (2021-12-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* sets `unique_id` on entities, which causes HA to create new entities. Opt out by using `unique_id: false` on the integration.
+
+### Features
+
+* generate entity unique_id from MAC address ([#12](https://github.com/luuuis/hass_wibeee/issues/12)) ([1f8b966](https://github.com/luuuis/hass_wibeee/commit/1f8b966612b3acfb296acde5975fd96d66f3ce9b))
+* use human-friendly name for sensors with unique_id, otherwise keep the old name ([#13](https://github.com/luuuis/hass_wibeee/issues/13)) ([bb59ccb](https://github.com/luuuis/hass_wibeee/commit/bb59ccbe518264c336c465ad5fd34521cbac0b12))
+
+
+### Bug Fixes
+
+* don't update entities that are disabled ([#15](https://github.com/luuuis/hass_wibeee/issues/15)) ([6474db6](https://github.com/luuuis/hass_wibeee/commit/6474db64ae02642b8e40b5df331d093181401b07))
+
 ## [3.0.0-beta.1](https://github.com/luuuis/hass_wibeee/compare/v2.2.3...v3.0.0-beta.1) (2021-11-24)
 
 
