@@ -120,7 +120,7 @@ class WibeeeSensor(SensorEntity):
         self._attr_available = True
         self._attr_state_class = STATE_CLASS_MEASUREMENT
         self._attr_device_class = device_class
-        self._attr_unique_id = f"wibeee_{mac_addr}_{ha_name.lower()}_{sensor_phase}" if mac_addr else None
+        self._attr_unique_id = f"_{mac_addr}_{ha_name.lower()}_{sensor_phase}" if mac_addr else None
         self._attr_name = f"{device_name} {friendly_name} L{sensor_phase}"
         self._attr_should_poll = False
         self.entity_id = f"sensor.{entity_id}"  # we don't want this derived from the name
@@ -214,7 +214,7 @@ class WibeeeData(object):
 
                     if sensor_name in SENSOR_TYPES:
                         sensor = WibeeeSensor(self, device, sensor_id, sensor_phase, sensor_name, sensor_value)
-                        _LOGGER.debug("Adding '%s' (unique_id=%s)", sensor.name, sensor)
+                        _LOGGER.debug("Adding '%s' (unique_id=%s)", sensor, sensor.unique_id)
                         tmp_sensors.append(sensor)
                 except:
                     _LOGGER.error(f"Unable to create WibeeeSensor Entities for key {key} and value {value}", exc_info=True)
