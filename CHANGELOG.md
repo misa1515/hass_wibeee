@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/luuuis/hass_wibeee/compare/v2.2.3...v3.0.0) (2022-01-02)
+
+Adds multiple device support. All entities now have a `unique_id`, which 
+allows them to be customised and renamed in Home Assistant.
+
+### ⚠ BREAKING CHANGES
+
+* sets `unique_id` on entities, which causes HA to create new entities.
+* YAML configuration is no longer supported. Existing configuration is imported as a one-off.
+
+### Features
+
+* add config flow for integration UI ([#22](https://github.com/luuuis/hass_wibeee/issues/22)) ([d4782d7](https://github.com/luuuis/hass_wibeee/commit/d4782d77f5ecb837515ee909fdb3ca38a4922284))
+* generate entity unique_id from MAC address ([#12](https://github.com/luuuis/hass_wibeee/issues/12)) ([1f8b966](https://github.com/luuuis/hass_wibeee/commit/1f8b966612b3acfb296acde5975fd96d66f3ce9b))
+* implement config options to allow changing scan_interval ([#23](https://github.com/luuuis/hass_wibeee/issues/23)) ([cbf76b0](https://github.com/luuuis/hass_wibeee/commit/cbf76b02d342c04debcde4d0468765cdc4fa8460))
+* use human-friendly name for sensors with unique_id, otherwise keep the old name ([#13](https://github.com/luuuis/hass_wibeee/issues/13)) ([bb59ccb](https://github.com/luuuis/hass_wibeee/commit/bb59ccbe518264c336c465ad5fd34521cbac0b12))
+* use Wibeee device name to assign Home Assistant name ([#18](https://github.com/luuuis/hass_wibeee/issues/18)) ([da3174c](https://github.com/luuuis/hass_wibeee/commit/da3174c1e9704fe816f533ef359d8469b738e380))
+
+
+### Bug Fixes
+
+* don't update entities that are disabled ([#15](https://github.com/luuuis/hass_wibeee/issues/15)) ([6474db6](https://github.com/luuuis/hass_wibeee/commit/6474db64ae02642b8e40b5df331d093181401b07))
+
 ### [2.2.3](https://github.com/luuuis/hass_wibeee/compare/v2.2.2...v2.2.3) (2021-08-31)
 
 
