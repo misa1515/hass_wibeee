@@ -13,6 +13,7 @@ from homeassistant.helpers.device_registry import format_mac
 
 from .api import WibeeeAPI
 from .const import (DOMAIN, DEFAULT_SCAN_INTERVAL)
+from .util import short_mac
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -26,9 +27,9 @@ async def validate_input(hass: HomeAssistant, user_input: dict) -> [str, str, di
     except Exception as e:
         raise NoDeviceInfo from e
 
-    mac_addr = format_mac(device['mac_addr'])
+    mac_addr = format_mac(device['macAddr'])
     unique_id = mac_addr
-    name = f"Wibeee {mac_addr.replace(':', '')[-6:].upper()}"
+    name = f"Wibeee {short_mac(mac_addr)}"
 
     return name, unique_id, {CONF_HOST: user_input[CONF_HOST], }
 
