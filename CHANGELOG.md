@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/luuuis/hass_wibeee/compare/v3.0.0...v3.1.0) (2022-01-03)
+
+
+### Features
+
+* implement device info for Wibeee sensors ([#26](https://github.com/luuuis/hass_wibeee/issues/26)) ([7938ea4](https://github.com/luuuis/hass_wibeee/commit/7938ea40577b18d0340f2804c79fadbe935ad906))
+
+
+### Bug Fixes
+
+* set HTTP errors to DEBUG level when they are going to be retried ([#25](https://github.com/luuuis/hass_wibeee/issues/25)) ([b3967f7](https://github.com/luuuis/hass_wibeee/commit/b3967f7c425bf228e7f59840b70bd374ec58bda3))
+
 ## [3.0.0](https://github.com/luuuis/hass_wibeee/compare/v2.2.3...v3.0.0) (2022-01-02)
 
 Adds multiple device support. All entities now have a `unique_id`, which 
