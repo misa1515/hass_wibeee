@@ -44,7 +44,8 @@ Use [HACS](https://hacs.xyz) (preferred) or follow the manual instructions below
 
 <details>
   <summary>Manual installation instructions</summary>
-### Manual installation
+
+### **Manual installation**
 
 1. Download `hass_wibeee.zip` from the latest release in https://github.com/luuuis/hass_wibeee/releases/latest
 2. Unzip into `<hass_folder>/config/custom_components`
@@ -74,5 +75,7 @@ See [SENSOR_EXAMPLES.md](./SENSOR_EXAMPLES.md)
 for suggested sensors that will help you get the most out of the integration.
 
 # Example View in Home Assistant
+
+<img src="https://user-images.githubusercontent.com/161006/147989082-2f45b4cf-84cf-4915-82ad-fcf09886e85b.jpg" width="400"/>
 
 <img src="https://i.imgur.com/PL3Qr4L.png" alt="Example View in Home Assistant" width="400"/>
