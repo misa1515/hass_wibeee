@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/luuuis/hass_wibeee/compare/v3.1.0...v3.1.1) (2022-01-07)
+
+
+### Bug Fixes
+
+* abort import of configuration.yaml entry if already imported ([#30](https://github.com/luuuis/hass_wibeee/issues/30)) ([c71c91a](https://github.com/luuuis/hass_wibeee/commit/c71c91a5ba1d15c5b41b062668dd28e88819e938))
+
 ## [3.1.0](https://github.com/luuuis/hass_wibeee/compare/v3.0.0...v3.1.0) (2022-01-03)
 
 
