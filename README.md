@@ -76,6 +76,6 @@ for suggested sensors that will help you get the most out of the integration.
 
 # Example View in Home Assistant
 
-<img src="https://user-images.githubusercontent.com/161006/147989082-2f45b4cf-84cf-4915-82ad-fcf09886e85b.jpg" width="400"/>
+<img src="https://user-images.githubusercontent.com/161006/147989082-2f45b4cf-84cf-4915-82ad-fcf09886e85b.jpg" alt="Wibeee Device view in Home Assistant" width="400"/>
 
-<img src="https://i.imgur.com/PL3Qr4L.png" alt="Example View in Home Assistant" width="400"/>
+<img src="https://user-images.githubusercontent.com/161006/148742540-01d0a802-9040-44ad-86c4-af8eff92838d.jpg" alt="Active Power graph in Home Assistant" width="400"/>
