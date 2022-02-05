@@ -1,4 +1,4 @@
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/luuuis/hass_wibeee?label=Latest%20release&style=for-the-badge)](https://github.com/luuuis/hass_wibeee/releases) [![GitHub all releases](https://img.shields.io/github/downloads/luuuis/hass_wibeee/total?style=for-the-badge)](https://github.com/luuuis/hass_wibeee/releases)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-yellow.svg?style=for-the-badge)](https://github.com/custom-components/hacs) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/luuuis/hass_wibeee?label=Latest%20release&style=for-the-badge)](https://github.com/luuuis/hass_wibeee/releases) [![GitHub all releases](https://img.shields.io/github/downloads/luuuis/hass_wibeee/total?style=for-the-badge)](https://github.com/luuuis/hass_wibeee/releases)
 
 # Home Assistant: Wibeee (and Mirubee) energy monitor custom component
 
@@ -36,11 +36,8 @@ Use [HACS](https://hacs.xyz) (preferred) or follow the manual instructions below
 ### Installation using HACS
 
 1. Open `Integrations` inside the HACS configuration.
-3. In the top right corner, click on the 3 dots and select `Custom repositories`
-4. Add the custom repository URL https://github.com/luuuis/hass_wibeee and select `Integration` as the category in the
-   list, then click `Add`.
-5. Click the + button in the bottom right corner, select this Wibeee component and `Install this repository in HACS`.
-6. Once installation is complete, restart Home Assistant
+2. Click the + button in the bottom right corner, select `Wibeee (and Mirubee) energy monitor` and then `Install this repository in HACS`.
+3. Once installation is complete, restart Home Assistant
 
 <details>
   <summary>Manual installation instructions</summary>
