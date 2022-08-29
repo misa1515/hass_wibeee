@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/luuuis/hass_wibeee/compare/v3.1.2...v3.2.0) (2022-08-29)
+
+
+### Features
+
+* add nest proxy for Local Push support ([#39](https://github.com/luuuis/hass_wibeee/issues/39)) ([cae89ec](https://github.com/luuuis/hass_wibeee/commit/cae89ec59720805bfb5107215b64e766ed7ffbd7))
+
 ### [3.1.2](https://github.com/luuuis/hass_wibeee/compare/v3.1.1...v3.1.2) (2022-02-07)
 
 
