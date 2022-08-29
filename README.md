@@ -71,6 +71,25 @@ with [Home Energy Management](https://www.home-assistant.io/home-energy-manageme
 See [SENSOR_EXAMPLES.md](./SENSOR_EXAMPLES.md)
 for suggested sensors that will help you get the most out of the integration.
 
+### Configuring Local Push (optional, advanced)
+
+Normally the integration will poll your devices to refresh the sensors but this should not be done too frequently to avoid overloading the device's remote API, which can cause the device to hang. With some extra configuration on the device it is possible to set up Local Push support, meaning that the device will push the sensor data to Home Assistant, which then forwards it to Wibeee Nest.
+
+1. Check the `Enable Nest Proxy on port 8600` option in the integration to allow Home Assistant to listen for sensor updates from your Wibeee device.
+  
+    ![Wibee integration configuration](https://community-assets.home-assistant.io/original/4X/a/9/a/a9a0af1900f1b151fa5e79d6c885c8dad2898cb1.jpeg)
+
+2. Open the device UI and in **Advanced Options** update the **Server** section to contain the IP address of your Home Assistant.
+  
+    ![Wibeee Web UI](https://community-assets.home-assistant.io/original/4X/3/4/d/34d66a091cd79ce4d12b5a9cf53f41e4c4b49612.jpeg)
+  
+    **Default**: Server URL is `nest-ingest.wibeee.com` and Server Port is 80  
+    **After**: Server URL the IP address of your HA instance and Server Port is 8600
+
+    Click **Apply** to make Wibeee restart, after which it should start pushing data to the Wibeee integration within Home Assistant.
+
+If everything was done correctly sensor data should now update [every second in Home Assistant and Wibeee Nest](https://community.home-assistant.io/t/new-integration-energy-monitoring-device-circutor-wibeee/45276/257?u=luuuis).
+
 # Example View in Home Assistant
 
 <img src="https://user-images.githubusercontent.com/161006/147989082-2f45b4cf-84cf-4915-82ad-fcf09886e85b.jpg" alt="Wibeee Device view in Home Assistant" width="400"/>
