@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.2](https://github.com/luuuis/hass_wibeee/compare/v3.2.1...v3.2.2) (2022-10-05)
+
+
+### Bug Fixes
+
+* correctly assign phase 4 / total values from (Nest) Local Push updates ([#47](https://github.com/luuuis/hass_wibeee/issues/47)) ([cf121e3](https://github.com/luuuis/hass_wibeee/commit/cf121e379cc609e3686b3e76253f20ff2925f555))
+
 ### [3.2.1](https://github.com/luuuis/hass_wibeee/compare/v3.2.0...v3.2.1) (2022-09-22)
 
 
