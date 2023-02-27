@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.3](https://github.com/luuuis/hass_wibeee/compare/v3.2.2...v3.2.3) (2023-02-27)
+
+
+### Bug Fixes
+
+* remove power factor unit to clear HA warning ([#58](https://github.com/luuuis/hass_wibeee/issues/58)) ([7f33a93](https://github.com/luuuis/hass_wibeee/commit/7f33a9391ccd802d56fa9fc2d0c6dbf9bd456fc2))
+
 ### [3.2.2](https://github.com/luuuis/hass_wibeee/compare/v3.2.1...v3.2.2) (2022-10-05)
 
 
