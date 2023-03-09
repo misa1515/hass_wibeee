@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.4](https://github.com/luuuis/hass_wibeee/compare/v3.2.3...v3.2.4) (2023-03-09)
+
+
+### Bug Fixes
+
+* update the IP or hostname when adding a device that's already configured ([#60](https://github.com/luuuis/hass_wibeee/issues/60)) ([8f802c2](https://github.com/luuuis/hass_wibeee/commit/8f802c217aee0483f0c274d16c475e508afb18ee))
+
 ### [3.2.3](https://github.com/luuuis/hass_wibeee/compare/v3.2.2...v3.2.3) (2023-02-27)
 
 
