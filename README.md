@@ -6,7 +6,7 @@
 
 ## Features
 
-Integrates CIRCUTOR Wibeee/Mirubeee energy monitoring devices into Home Assistant. Works with single and three-phase
+Integrates CIRCUTOR Wibeee/Mirubee energy monitoring devices into Home Assistant. Works with single and three-phase
 versions.
 
 ### Sensors
