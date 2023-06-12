@@ -46,7 +46,14 @@ from homeassistant.helpers.typing import StateType
 from homeassistant.util import slugify
 
 from .api import WibeeeAPI
-from .const import (DOMAIN, DEFAULT_SCAN_INTERVAL, DEFAULT_TIMEOUT, CONF_NEST_PROXY_ENABLE)
+from .const import (
+    DOMAIN,
+    DEFAULT_SCAN_INTERVAL,
+    DEFAULT_TIMEOUT,
+    CONF_NEST_UPSTREAM,
+    NEST_DEFAULT_UPSTREAM,
+    NEST_PROXY_DISABLED,
+)
 from .nest import get_nest_proxy
 from .util import short_mac
 
@@ -162,7 +169,7 @@ def setup_local_polling(hass: HomeAssistant, api: WibeeeAPI, sensors: list['Wibe
     return async_track_time_interval(hass, fetching_data, scan_interval)
 
 
-async def async_setup_local_push(hass: HomeAssistant, device, sensors: list['WibeeeSensor']):
+async def async_setup_local_push(hass: HomeAssistant, entry: ConfigEntry, device, sensors: list['WibeeeSensor']):
     mac_address = device['macAddr']
     nest_proxy = await get_nest_proxy(hass)
 
@@ -175,7 +182,8 @@ async def async_setup_local_push(hass: HomeAssistant, device, sensors: list['Wib
     def unregister_listener():
         nest_proxy.unregister_device(mac_address)
 
-    nest_proxy.register_device(mac_address, on_pushed_data)
+    upstream = entry.options.get(CONF_NEST_UPSTREAM)
+    nest_proxy.register_device(mac_address, on_pushed_data, upstream)
     return unregister_listener
 
 
@@ -187,7 +195,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     host = entry.data[CONF_HOST]
     scan_interval = timedelta(seconds=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL.total_seconds()))
     timeout = timedelta(seconds=entry.options.get(CONF_TIMEOUT, DEFAULT_TIMEOUT.total_seconds()))
-    use_nest_proxy = entry.options.get(CONF_NEST_PROXY_ENABLE)
+    use_nest_proxy = entry.options.get(CONF_NEST_UPSTREAM, NEST_PROXY_DISABLED) != NEST_PROXY_DISABLED
 
     if use_nest_proxy:
         # first set up the Nest proxy. it's important to do this first because the device will not respond to status.xml
@@ -209,7 +217,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     disposers.update(fetch_status=remove_fetch_listener)
 
     if use_nest_proxy:
-        remove_push_listener = await async_setup_local_push(hass, device, sensors)
+        remove_push_listener = await async_setup_local_push(hass, entry, device, sensors)
         disposers.update(push_listener=remove_push_listener)
 
     _LOGGER.info(f"Setup completed for '{entry.unique_id}' (host={host}, scan_interval={scan_interval}, timeout={timeout})")

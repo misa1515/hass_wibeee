@@ -11,9 +11,10 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.data_entry_flow import AbortFlow
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.device_registry import format_mac
+from homeassistant.helpers.selector import SelectSelectorConfig, SelectSelectorMode, SelectSelector
 
 from .api import WibeeeAPI
-from .const import (DOMAIN, DEFAULT_SCAN_INTERVAL, CONF_NEST_PROXY_ENABLE)
+from .const import DOMAIN, DEFAULT_SCAN_INTERVAL, CONF_NEST_UPSTREAM, NEST_ALL_UPSTREAMS, NEST_PROXY_DISABLED
 from .util import short_mac
 
 _LOGGER = logging.getLogger(__name__)
@@ -37,7 +38,7 @@ async def validate_input(hass: HomeAssistant, user_input: dict) -> [str, str, di
 
 class WibeeeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Wibeee config flow."""
-    VERSION = 1
+    VERSION = 2
 
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""
@@ -87,24 +88,28 @@ class WibeeeOptionsFlowHandler(config_entries.OptionsFlow):
     def __init__(self, config_entry):
         """Initialize options flow."""
         self.config_entry = config_entry
+        self.options = dict(config_entry.options)
 
     async def async_step_init(self, user_input=None):
-        """Manage the options."""
+        """Main options."""
         if user_input is not None:
-            return self.async_create_entry(title="", data=user_input)
+            self.options.update(user_input)
+            return self.async_create_entry(title="", data=self.options)
+
+        data_schema = vol.Schema({
+            vol.Optional(
+                CONF_SCAN_INTERVAL,
+                default=self.config_entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL.total_seconds())
+            ): int,
+            vol.Required(
+                CONF_NEST_UPSTREAM,
+                default=self.config_entry.options.get(CONF_NEST_UPSTREAM, NEST_PROXY_DISABLED)
+            ): SelectSelector(SelectSelectorConfig(options=NEST_ALL_UPSTREAMS, mode=SelectSelectorMode.DROPDOWN))
+        })
 
         return self.async_show_form(
             step_id="init",
-            data_schema=vol.Schema({
-                vol.Optional(
-                    CONF_SCAN_INTERVAL,
-                    default=self.config_entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL.total_seconds())
-                ): int,
-                vol.Optional(
-                    CONF_NEST_PROXY_ENABLE,
-                    default=self.config_entry.options.get(CONF_NEST_PROXY_ENABLE, False)
-                ): bool
-            }),
+            data_schema=data_schema
         )
 
 
