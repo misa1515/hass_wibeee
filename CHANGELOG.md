@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0-beta.0](https://github.com/luuuis/hass_wibeee/compare/v3.2.4...v3.3.0-beta.0) (2023-06-12)
+
+
+### Features
+
+* add configuration option to change the upstream URL ([#62](https://github.com/luuuis/hass_wibeee/issues/62)) ([bb596f6](https://github.com/luuuis/hass_wibeee/commit/bb596f66832d42c72d01ea99afdac2e49ee5fdfe))
+
 ### [3.2.4](https://github.com/luuuis/hass_wibeee/compare/v3.2.3...v3.2.4) (2023-03-09)
 
 
