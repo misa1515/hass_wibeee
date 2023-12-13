@@ -2,7 +2,7 @@
 
 # Home Assistant: Wibeee (and Mirubee) energy monitor custom component
 
-<img src="https://wibeee.com/wp-content/uploads/2018/09/logo.png" width="200" alt="Wibeee logo"/>
+<img src="https://github.com/luuuis/hass_wibeee/assets/161006/f0a2e9c5-0f1c-46ee-b87b-b150c0f6f84b" width="300" alt="Wibeee logo"/>
 
 ## Features
 
