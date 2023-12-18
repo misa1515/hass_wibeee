@@ -1,12 +1,32 @@
 import asyncio
 import logging
 from datetime import timedelta
+from typing import NamedTuple, Optional
 from urllib.parse import quote_plus
 
 import aiohttp
 import xmltodict
+from homeassistant.helpers.typing import StateType
+from packaging import version
 
 _LOGGER = logging.getLogger(__name__)
+
+StatusResponse = dict[str, StateType]
+
+
+class DeviceInfo(NamedTuple):
+    id: str
+    "Device ID (default is 'WIBEEE')"
+    macAddr: str
+    "MAC address (formatted for use in HA)"
+    softVersion: str
+    "Firmware version"
+    model: str
+    "Wibeee Model (single or 3-phase, etc)"
+    ipAddr: str
+    "IP address"
+    use_values2: bool
+    "Whether to use values2.xml format"
 
 
 class WibeeeAPI(object):
@@ -21,12 +41,13 @@ class WibeeeAPI(object):
         self.max_wait = min(timedelta(seconds=5), timeout)
         _LOGGER.info("Initializing WibeeeAPI with host: %s, timeout %s, max_wait: %s", host, self.timeout, self.max_wait)
 
-    async def async_fetch_status(self, retries: int = 0):
+    async def async_fetch_status(self, device: DeviceInfo, retries: int = 0) -> dict[str, any]:
         """Fetches the status XML from Wibeee as a dict, optionally retries"""
-        status = await self.async_fetch_url(f'http://{self.host}/en/status.xml', retries)
+        status_path = f'services/values2.xml?id={quote_plus(device.id)}' if device.use_values2 else 'en/status.xml'
+        status = await self.async_fetch_url(f'http://{self.host}/{status_path}', retries)
         return status["response"]
 
-    async def async_fetch_device_info(self, retries: int):
+    async def async_fetch_device_info(self, retries: int) -> Optional[DeviceInfo]:
         # <devices><id>WIBEEE</id></devices>
         devices = await self.async_fetch_url(f'http://{self.host}/services/user/devices.xml', retries)
         device_id = devices['devices']['id']
@@ -38,11 +59,14 @@ class WibeeeAPI(object):
         # <values><variable><id>macAddr</id><value>11:11:11:11:11:11</value></variable></values>
         device_vars = {var['id']: var['value'] for var in values['values']['variable']}
 
-        return {
-            **device_vars,
-            'macAddr': device_vars['macAddr'].replace(':', ''),
-            'id': device_id,
-        } if len(device_vars) == len(var_names) else None
+        return DeviceInfo(
+            device_id,
+            device_vars['macAddr'].replace(':', ''),
+            device_vars['softVersion'],
+            device_vars['model'],
+            device_vars['ipAddr'],
+            version.parse(device_vars['softVersion']) >= version.parse('4.4.171')
+        ) if len(device_vars) == len(var_names) else None
 
     async def async_fetch_url(self, url, retries: int = 0):
         async def fetch_with_retries(try_n):
