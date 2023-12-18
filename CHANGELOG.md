@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0-beta.0](https://github.com/luuuis/hass_wibeee/compare/v3.3.0...v3.4.0-beta.0) (2023-12-18)
+
+
+### Features
+
+* **api:** support values2.xml API used by firmware >= 4.4.171 ([2b0577c](https://github.com/luuuis/hass_wibeee/commit/2b0577c4e7e0a15189200ae49f396aa1b8b065cb))
+
 ## [3.3.0](https://github.com/luuuis/hass_wibeee/compare/v3.2.4...v3.3.0) (2023-09-25)
 
 
