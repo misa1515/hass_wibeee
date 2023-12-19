@@ -43,7 +43,7 @@ class WibeeeAPI(object):
 
     async def async_fetch_status(self, device: DeviceInfo, retries: int = 0) -> dict[str, any]:
         """Fetches the status XML from Wibeee as a dict, optionally retries"""
-        status_path = f'services/values2.xml?id={quote_plus(device.id)}' if device.use_values2 else 'en/status.xml'
+        status_path = f'services/user/values2.xml?id={quote_plus(device.id)}' if device.use_values2 else 'en/status.xml'
         status = await self.async_fetch_url(f'http://{self.host}/{status_path}', retries)
         return status["response"]
 
