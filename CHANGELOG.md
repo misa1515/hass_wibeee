@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0-beta.2](https://github.com/luuuis/hass_wibeee/compare/v3.4.0-beta.1...v3.4.0-beta.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* **api:** async_fetch_status correctly handles values2.xml response ([df4be77](https://github.com/luuuis/hass_wibeee/commit/df4be7775de91a855e923f50fc39192b71711584))
+
 ## [3.4.0-beta.1](https://github.com/luuuis/hass_wibeee/compare/v3.4.0-beta.0...v3.4.0-beta.1) (2023-12-19)
 
 
