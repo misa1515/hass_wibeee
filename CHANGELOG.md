@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0-beta.4](https://github.com/luuuis/hass_wibeee/compare/v3.4.0-beta.3...v3.4.0-beta.4) (2023-12-19)
+
 ## [3.4.0-beta.3](https://github.com/luuuis/hass_wibeee/compare/v3.4.0-beta.2...v3.4.0-beta.3) (2023-12-19)
 
 
