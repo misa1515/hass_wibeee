@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0-beta.1](https://github.com/luuuis/hass_wibeee/compare/v3.4.0-beta.0...v3.4.0-beta.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* **api:** API address is /services/user/values2.xml ([6922437](https://github.com/luuuis/hass_wibeee/commit/692243738ed83bad61ad43cd7061a7395b3247c8))
+
 ## [3.4.0-beta.0](https://github.com/luuuis/hass_wibeee/compare/v3.3.0...v3.4.0-beta.0) (2023-12-18)
 
 
