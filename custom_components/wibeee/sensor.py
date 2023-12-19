@@ -44,7 +44,7 @@ from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.typing import StateType
 from homeassistant.util import slugify
 
-from .api import WibeeeAPI, DeviceInfo, StatusResponse
+from .api import WibeeeAPI, DeviceInfo
 from .const import (
     DOMAIN,
     DEFAULT_SCAN_INTERVAL,
@@ -138,7 +138,15 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     ))
 
 
-def create_sensors(device, status: StatusResponse) -> list['WibeeeSensor']:
+class StatusElement(NamedTuple):
+    phase: str
+    xml_name: str
+    sensor_type: SensorType
+
+
+def get_status_elements(device: DeviceInfo) -> list[StatusElement]:
+    """Returns the expected elements in the status XML response for this device."""
+
     class StatusLookup(NamedTuple):
         """Strategy for handling `status.xml` or `values2.xml` response lookups."""
         is_expected: Callable[[SensorType], bool]
@@ -152,11 +160,11 @@ def create_sensors(device, status: StatusResponse) -> list['WibeeeSensor']:
         lambda s: [(phase, f"fase{phase}_{s.status_xml_suffix}") for phase in ['1', '2', '3', '4']],
     )
 
-    expected_types = [sensor for sensor in KNOWN_SENSORS if lookup.is_expected(sensor)]
-    expected = [(phase, xml_name, sensor_type) for sensor_type in expected_types for phase, xml_name in lookup.xml_names(sensor_type)]
-    available = [(phase, xml_name, sensor_type, status.get(xml_name)) for phase, xml_name, sensor_type in expected if xml_name in status]
-
-    return [WibeeeSensor(device, phase, sensor_type, xml_name, initial_value) for (phase, xml_name, sensor_type, initial_value) in available]
+    return [
+        StatusElement(phase, xml_name, sensor_type)
+        for sensor_type in KNOWN_SENSORS if lookup.is_expected(sensor_type)
+        for phase, xml_name in lookup.xml_names(sensor_type)
+    ]
 
 
 def update_sensors(sensors, update_source, lookup_key, data):
@@ -173,8 +181,8 @@ def setup_local_polling(hass: HomeAssistant, api: WibeeeAPI, device: DeviceInfo,
 
     async def fetching_data(now=None):
         try:
-            fetched = await api.async_fetch_status(device, retries=3)
-            update_sensors(sensors, 'status.xml', status_xml_param, fetched)
+            fetched = await api.async_fetch_status(device, [s.status_xml_param for s in sensors], retries=3)
+            update_sensors(sensors, 'values2.xml' if device.use_values2 else 'status.xml', status_xml_param, fetched)
         except Exception as err:
             if now is None:
                 raise PlatformNotReady from err
@@ -218,9 +226,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     api = WibeeeAPI(session, host, min(timeout, scan_interval))
     device = await api.async_fetch_device_info(retries=5)
-    initial_status = await api.async_fetch_status(device, retries=10)
+    status_elements = get_status_elements(device)
 
-    sensors = create_sensors(device, initial_status)
+    initial_status = await api.async_fetch_status(device, [e.xml_name for e in status_elements], retries=10)
+    sensors = [
+        WibeeeSensor(device, e.phase, e.sensor_type, e.xml_name, initial_status.get(e.xml_name))
+        for e in status_elements if e.xml_name in initial_status
+    ]
+
     for sensor in sensors:
         _LOGGER.debug("Adding '%s' (unique_id=%s)", sensor, sensor.unique_id)
     async_add_entities(sensors, True)
