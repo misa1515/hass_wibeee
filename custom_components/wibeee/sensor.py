@@ -1,7 +1,7 @@
 """
 Support for Energy consumption Sensors from Circutor via local Web API
 
-Device's website: http://wibeee.circutor.com/
+Vendor docs: https://support.wibeee.com/space/CH/184025089/XML
 Documentation: https://github.com/luuuis/hass_wibeee/
 
 """
@@ -9,8 +9,8 @@ Documentation: https://github.com/luuuis/hass_wibeee/
 REQUIREMENTS = ["xmltodict"]
 
 import logging
-from collections import namedtuple
 from datetime import timedelta
+from typing import NamedTuple, Optional, Callable
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
@@ -34,24 +34,22 @@ from homeassistant.const import (
     CONF_TIMEOUT,
     CONF_UNIQUE_ID,
     STATE_UNAVAILABLE,
-    PERCENTAGE,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity import DeviceInfo as HassDeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.typing import StateType
 from homeassistant.util import slugify
 
-from .api import WibeeeAPI
+from .api import WibeeeAPI, DeviceInfo
 from .const import (
     DOMAIN,
     DEFAULT_SCAN_INTERVAL,
     DEFAULT_TIMEOUT,
     CONF_NEST_UPSTREAM,
-    NEST_DEFAULT_UPSTREAM,
     NEST_PROXY_DISABLED,
 )
 from .nest import get_nest_proxy
@@ -76,38 +74,41 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 })
 
 
-class SensorType(namedtuple('SensorType', [
-    'status_xml_suffix',
-    'nest_push_prefix',
-    'unique_name',
-    'friendly_name',
-    'unit',
-    'device_class',
-])):
-    """\
-    SensorType: Wibeee supported sensor definition.
-
-    status_xml_suffix - the suffix used for elements in `status.xml` output (e.g.: "vrms")
-    nest_push_prefix  - optional prefix used in Wibeee Nest push requests such as receiverLeap (e.g.: "v")
-    friendly_name     - used to build the sensor name and entity id (e.g.: "Phase Voltage")
-    unique_name       - used to build the sensor unique_id (e.g.: "Vrms")
-    unit              - unit to use for the sensor (e.g.: "V")
-    device_class      - optional device class to use for the sensor (e.g.: "voltage")
+class SensorType(NamedTuple):
     """
+    Wibeee supported sensor definition.
+
+    One of `status_xml_suffix` (for older firmwares) or `value2_xml_prefix` (for newer firmwares) is required.
+    """
+    status_xml_suffix: Optional[str]
+    "optional suffix used for elements in `status.xml` output (e.g.: 'vrms')"
+    values2_xml_prefix: Optional[str]
+    "optional suffix used for elements in `values2.xml` output (e.g.: 'vrms')"
+    nest_push_prefix: Optional[str]
+    "optional prefix used in Wibeee Nest push requests such as receiverLeap (e.g.: 'v')"
+    unique_name: str
+    "used to build the sensor unique_id (e.g.: 'Vrms')"
+    friendly_name: str
+    "used to build the sensor name and entity id (e.g.: 'Phase Voltage')"
+    unit: Optional[str]
+    "unit to use for the sensor (e.g.: 'V')"
+    device_class: Optional[str]
+    "optional device class to use for the sensor (e.g.: 'voltage')"
 
 
 KNOWN_SENSORS = [
-    SensorType('vrms', 'v', 'Vrms', 'Phase Voltage', ELECTRIC_POTENTIAL_VOLT, SensorDeviceClass.VOLTAGE),
-    SensorType('irms', 'i', 'Irms', 'Current', ELECTRIC_CURRENT_AMPERE, SensorDeviceClass.CURRENT),
-    SensorType('frecuencia', 'q', 'Frequency', 'Frequency', FREQUENCY_HERTZ, device_class=None),
-    SensorType('p_activa', 'a', 'Active_Power', 'Active Power', POWER_WATT, SensorDeviceClass.POWER),
-    SensorType('p_reactiva_ind', 'r', 'Inductive_Reactive_Power', 'Inductive Reactive Power', POWER_VOLT_AMPERE_REACTIVE, SensorDeviceClass.REACTIVE_POWER),
-    SensorType('p_reactiva_cap', None, 'Capacitive_Reactive_Power', 'Capacitive Reactive Power', POWER_VOLT_AMPERE_REACTIVE, SensorDeviceClass.REACTIVE_POWER),
-    SensorType('p_aparent', 'p', 'Apparent_Power', 'Apparent Power', POWER_VOLT_AMPERE, SensorDeviceClass.APPARENT_POWER),
-    SensorType('factor_potencia', 'f', 'Power_Factor', 'Power Factor', None, SensorDeviceClass.POWER_FACTOR),
-    SensorType('energia_activa', 'e', 'Active_Energy', 'Active Energy', ENERGY_WATT_HOUR, SensorDeviceClass.ENERGY),
-    SensorType('energia_reactiva_ind', 'o', 'Inductive_Reactive_Energy', 'Inductive Reactive Energy', ENERGY_VOLT_AMPERE_REACTIVE_HOUR, SensorDeviceClass.ENERGY),
-    SensorType('energia_reactiva_cap', None, 'Capacitive_Reactive_Energy', 'Capacitive Reactive Energy', ENERGY_VOLT_AMPERE_REACTIVE_HOUR, SensorDeviceClass.ENERGY),
+    SensorType('vrms', 'vrms', 'v', 'Vrms', 'Phase Voltage', ELECTRIC_POTENTIAL_VOLT, SensorDeviceClass.VOLTAGE),
+    SensorType('irms', 'irms', 'i', 'Irms', 'Current', ELECTRIC_CURRENT_AMPERE, SensorDeviceClass.CURRENT),
+    SensorType('frecuencia', 'freq', 'q', 'Frequency', 'Frequency', FREQUENCY_HERTZ, device_class=None),
+    SensorType('p_activa', 'pac', 'a', 'Active_Power', 'Active Power', POWER_WATT, SensorDeviceClass.POWER),
+    SensorType(None, 'preac', 'r', 'Reactive_Power', 'Reactive Power', POWER_VOLT_AMPERE_REACTIVE, SensorDeviceClass.REACTIVE_POWER),
+    SensorType('p_reactiva_ind', None, 'r', 'Inductive_Reactive_Power', 'Inductive Reactive Power', POWER_VOLT_AMPERE_REACTIVE, SensorDeviceClass.REACTIVE_POWER),
+    SensorType('p_reactiva_cap', None, None, 'Capacitive_Reactive_Power', 'Capacitive Reactive Power', POWER_VOLT_AMPERE_REACTIVE, SensorDeviceClass.REACTIVE_POWER),
+    SensorType('p_aparent', 'pap', 'p', 'Apparent_Power', 'Apparent Power', POWER_VOLT_AMPERE, SensorDeviceClass.APPARENT_POWER),
+    SensorType('factor_potencia', 'fpot', 'f', 'Power_Factor', 'Power Factor', None, SensorDeviceClass.POWER_FACTOR),
+    SensorType('energia_activa', 'eac', 'e', 'Active_Energy', 'Active Energy', ENERGY_WATT_HOUR, SensorDeviceClass.ENERGY),
+    SensorType('energia_reactiva_ind', 'ereact', 'o', 'Inductive_Reactive_Energy', 'Inductive Reactive Energy', ENERGY_VOLT_AMPERE_REACTIVE_HOUR, SensorDeviceClass.ENERGY),
+    SensorType('energia_reactiva_cap', 'ereactc', None, 'Capacitive_Reactive_Energy', 'Capacitive Reactive Energy', ENERGY_VOLT_AMPERE_REACTIVE_HOUR, SensorDeviceClass.ENERGY),
 ]
 
 KNOWN_MODELS = {
@@ -137,12 +138,33 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     ))
 
 
-def create_sensors(device, status) -> list['WibeeeSensor']:
-    xml_suffixes = {sensor_type.status_xml_suffix: sensor_type for sensor_type in KNOWN_SENSORS}
-    phase_xml_suffixes = [(key[4:].split("_", 1), value) for key, value in status.items() if key.startswith('fase')]
-    known_sensors = [(phase, xml_suffixes[suffix], value) for ((phase, suffix), value) in phase_xml_suffixes if suffix in xml_suffixes]
+class StatusElement(NamedTuple):
+    phase: str
+    xml_name: str
+    sensor_type: SensorType
 
-    return [WibeeeSensor(device, phase, sensor_type, initial_value) for (phase, sensor_type, initial_value) in known_sensors]
+
+def get_status_elements(device: DeviceInfo) -> list[StatusElement]:
+    """Returns the expected elements in the status XML response for this device."""
+
+    class StatusLookup(NamedTuple):
+        """Strategy for handling `status.xml` or `values2.xml` response lookups."""
+        is_expected: Callable[[SensorType], bool]
+        xml_names: Callable[[SensorType], list[(str, str)]]
+
+    lookup = StatusLookup(
+        lambda s: s.values2_xml_prefix is not None,
+        lambda s: [('4' if phase == 't' else phase, f"{s.values2_xml_prefix}{phase}") for phase in ['1', '2', '3', 't']],
+    ) if device.use_values2 else StatusLookup(
+        lambda s: s.status_xml_suffix is not None,
+        lambda s: [(phase, f"fase{phase}_{s.status_xml_suffix}") for phase in ['1', '2', '3', '4']],
+    )
+
+    return [
+        StatusElement(phase, xml_name, sensor_type)
+        for sensor_type in KNOWN_SENSORS if lookup.is_expected(sensor_type)
+        for phase, xml_name in lookup.xml_names(sensor_type)
+    ]
 
 
 def update_sensors(sensors, update_source, lookup_key, data):
@@ -153,14 +175,14 @@ def update_sensors(sensors, update_source, lookup_key, data):
         s.update_value(value, update_source)
 
 
-def setup_local_polling(hass: HomeAssistant, api: WibeeeAPI, sensors: list['WibeeeSensor'], scan_interval: timedelta):
+def setup_local_polling(hass: HomeAssistant, api: WibeeeAPI, device: DeviceInfo, sensors: list['WibeeeSensor'], scan_interval: timedelta):
     def status_xml_param(sensor: WibeeeSensor) -> str:
         return sensor.status_xml_param
 
     async def fetching_data(now=None):
         try:
-            fetched = await api.async_fetch_status(retries=3)
-            update_sensors(sensors, 'status.xml', status_xml_param, fetched)
+            fetched = await api.async_fetch_status(device, [s.status_xml_param for s in sensors], retries=3)
+            update_sensors(sensors, 'values2.xml' if device.use_values2 else 'status.xml', status_xml_param, fetched)
         except Exception as err:
             if now is None:
                 raise PlatformNotReady from err
@@ -204,16 +226,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     api = WibeeeAPI(session, host, min(timeout, scan_interval))
     device = await api.async_fetch_device_info(retries=5)
-    initial_status = await api.async_fetch_status(retries=10)
+    status_elements = get_status_elements(device)
 
-    sensors = create_sensors(device, initial_status)
+    initial_status = await api.async_fetch_status(device, [e.xml_name for e in status_elements], retries=10)
+    sensors = [
+        WibeeeSensor(device, e.phase, e.sensor_type, e.xml_name, initial_status.get(e.xml_name))
+        for e in status_elements if e.xml_name in initial_status
+    ]
+
     for sensor in sensors:
         _LOGGER.debug("Adding '%s' (unique_id=%s)", sensor, sensor.unique_id)
     async_add_entities(sensors, True)
 
     disposers = hass.data[DOMAIN][entry.entry_id]['disposers']
 
-    remove_fetch_listener = setup_local_polling(hass, api, sensors, scan_interval)
+    remove_fetch_listener = setup_local_polling(hass, api, device, sensors, scan_interval)
     disposers.update(fetch_status=remove_fetch_listener)
 
     if use_nest_proxy:
@@ -227,9 +254,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 class WibeeeSensor(SensorEntity):
     """Implementation of Wibeee sensor."""
 
-    def __init__(self, device, sensor_phase: str, sensor_type: SensorType, initial_value: StateType):
+    def __init__(self, device: DeviceInfo, sensor_phase: str, sensor_type: SensorType, status_xml_param: str, initial_value: StateType):
         """Initialize the sensor."""
-        [device_name, mac_addr] = [device['id'], device['macAddr']]
+        [device_name, mac_addr] = [device.id, device.macAddr]
         entity_id = slugify(f"{DOMAIN} {mac_addr} {sensor_type.friendly_name} L{sensor_phase}")
         self._attr_native_unit_of_measurement = sensor_type.unit
         self._attr_native_value = initial_value
@@ -241,7 +268,7 @@ class WibeeeSensor(SensorEntity):
         self._attr_should_poll = False
         self._attr_device_info = _make_device_info(device, sensor_phase)
         self.entity_id = f"sensor.{entity_id}"  # we don't want this derived from the name
-        self.status_xml_param = f"fase{sensor_phase}_{sensor_type.status_xml_suffix}"
+        self.status_xml_param = status_xml_param
         self.nest_push_param = f"{sensor_type.nest_push_prefix}{'t' if sensor_phase == '4' else sensor_phase}"
 
     @callback
@@ -254,14 +281,14 @@ class WibeeeSensor(SensorEntity):
             _LOGGER.debug("Updating from %s: %s", update_source, self)
 
 
-def _make_device_info(device, sensor_phase) -> DeviceInfo:
-    mac_addr = device['macAddr']
+def _make_device_info(device: DeviceInfo, sensor_phase) -> HassDeviceInfo:
+    mac_addr = device.macAddr
     is_clamp = sensor_phase != '4'
 
     device_name = f'Wibeee {short_mac(mac_addr)}'
-    device_model = KNOWN_MODELS.get(device['model'], 'Wibeee Energy Meter')
+    device_model = KNOWN_MODELS.get(device.model, 'Wibeee Energy Meter')
 
-    return DeviceInfo(
+    return HassDeviceInfo(
         # identifiers and links
         identifiers={(DOMAIN, f'{mac_addr}_L{sensor_phase}' if is_clamp else mac_addr)},
         via_device=(DOMAIN, f'{mac_addr}') if is_clamp else None,
@@ -270,6 +297,6 @@ def _make_device_info(device, sensor_phase) -> DeviceInfo:
         name=device_name if not is_clamp else f"{device_name} Line {sensor_phase}",
         model=device_model if not is_clamp else f'{device_model} Clamp',
         manufacturer='Smilics',
-        configuration_url=f"http://{device['ipAddr']}/" if not is_clamp else None,
-        sw_version=f"{device['softVersion']}" if not is_clamp else None,
+        configuration_url=f"http://{device.ipAddr}/" if not is_clamp else None,
+        sw_version=f"{device.softVersion}" if not is_clamp else None,
     )
