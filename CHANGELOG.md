@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/luuuis/hass_wibeee/compare/v3.3.0...v3.4.0) (2023-12-20)
+
+
+### Features
+
+* **api:** support values2.xml API used by firmware >= 4.4.171 ([#70](https://github.com/luuuis/hass_wibeee/issues/70)) ([03e0455](https://github.com/luuuis/hass_wibeee/commit/03e0455532918a31162835982cd7d59dcbe2725c))
+* **i18n:** added sk translations ([#71](https://github.com/luuuis/hass_wibeee/issues/71)) ([b8c99b4](https://github.com/luuuis/hass_wibeee/commit/b8c99b4716969809ebff0902db968ec380a48135))
+
 ## [3.3.0](https://github.com/luuuis/hass_wibeee/compare/v3.2.4...v3.3.0) (2023-09-25)
 
 
