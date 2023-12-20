@@ -1,0 +1,32 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Pridať Wibeee zariadenie",
+        "description": "Ak používate adresu IP, uistite sa, že zariadenie je nakonfigurované so statickou adresou IP alebo priradením DHCP.",
+        "data": {
+          "host": "Názov hostiteľa alebo adresa IP"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Zariadenie je už nakonfigurované"
+    },
+    "error": {
+      "no_device_info": "Nepodarilo sa prečítať informácie o zariadení.",
+      "unknown": "Neznáma chyba."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Možnosti integrácie Wibeee",
+        "description": "Nakonfigurujte polling a a lokálne push",
+        "data": {
+          "scan_interval": "Interval výzvy zariadenia v sekundách",
+          "nest_upstream": "Cloudová služba na nahrávanie údajov"
+        }
+      }
+    }
+  }
+}
