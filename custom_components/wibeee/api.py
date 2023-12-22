@@ -9,7 +9,7 @@ import xmltodict
 from homeassistant.helpers.typing import StateType
 from packaging import version
 
-from util import scrub_xml_text_naively, scrub_dict_top_level
+from .util import scrub_xml_text_naively, scrub_dict_top_level
 
 _LOGGER = logging.getLogger(__name__)
 
