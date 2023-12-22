@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.1](https://github.com/luuuis/hass_wibeee/compare/v3.4.0...v3.4.1) (2023-12-22)
+
+
+### Bug Fixes
+
+* **nest:** fixed local push not enabled ([#72](https://github.com/luuuis/hass_wibeee/issues/72)) ([bcb1ac9](https://github.com/luuuis/hass_wibeee/commit/bcb1ac9b30f3718791ffd9f2bc94f37e8f970cc8))
+
 ## [3.4.0](https://github.com/luuuis/hass_wibeee/compare/v3.3.0...v3.4.0) (2023-12-20)
 
 
