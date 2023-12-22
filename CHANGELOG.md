@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+
+### Bug Fixes
+
+* **logging:** mask out WiFi SSID and secret before it goes into logs ([#73](https://github.com/luuuis/hass_wibeee/issues/73)) ([018bdd8](https://github.com/luuuis/hass_wibeee/commit/018bdd89f48305ffc02d70e6d661ee709128d11a))
+
 ### [3.4.1](https://github.com/luuuis/hass_wibeee/compare/v3.4.0...v3.4.1) (2023-12-22)
 
 
