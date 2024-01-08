@@ -71,15 +71,20 @@ with [Home Energy Management](https://www.home-assistant.io/home-energy-manageme
 See [SENSOR_EXAMPLES.md](./SENSOR_EXAMPLES.md)
 for suggested sensors that will help you get the most out of the integration.
 
-### Configuring Local Push (optional, advanced)
+### 💡 Configuring Local Push (optional, advanced)
 
-Normally the integration will poll your devices to refresh the sensors but this should not be done too frequently to avoid overloading the device's remote API, which can cause the device to hang. With some extra configuration on the device it is possible to set up Local Push support, meaning that the device will push the sensor data to Home Assistant, which then forwards it to Wibeee Nest.
+Local Push is highly recommended for increased stability and performance. Normally the integration will poll your devices to refresh the sensors but this should not be done too frequently to avoid overloading the device's remote API, which can cause the device to hang. With some extra configuration on the device it is possible to set up Local Push support, meaning that the device will push the sensor data to Home Assistant with high frequency (about every 10 seconds but more or less frequently as necessary).
 
-1. Check the `Enable Nest Proxy on port 8600` option in the integration to allow Home Assistant to listen for sensor updates from your Wibeee device.
-  
-    ![Wibee integration configuration](https://community-assets.home-assistant.io/original/4X/a/9/a/a9a0af1900f1b151fa5e79d6c885c8dad2898cb1.jpeg)
+1. In the integration's configuration under `Cloud service to upload data to` select one of the available options that causes the integration to listen on **port 8600** for Local Push updates from your Wibeee device.
+   * Choose **Local only** and the integration will listen for local push updates and will store them locally,
+   * Choose **Wibeee Nest** and the integration will listen for local push updates and will send them to Wibeee Nest after storing them locally,
+   * and similar for other Cloud services such as Iberdrola and SolarProfit.
 
-2. Open the device UI and in **Advanced Options** update the **Server** section to contain the IP address of your Home Assistant.
+    ![Wibee integration polling interval configuration](https://github.com/luuuis/hass_wibeee/assets/161006/87309a25-2ee3-4658-8662-61ab0a068234) ![Wibee integration local push configuration](https://github.com/luuuis/hass_wibeee/assets/161006/dc047ecc-743b-43a9-a3a8-fea9660c7775)
+
+   The polling interval should be set much higher when Local Push is in use. Updates are sent by the Wibeee device with high frequency so there is no reason for a short polling interval that will overload the device.
+   
+4. Open the device UI and in **Advanced Options** update the **Server** section to contain the IP address of your Home Assistant.
   
     ![Wibeee Web UI](https://community-assets.home-assistant.io/original/4X/3/4/d/34d66a091cd79ce4d12b5a9cf53f41e4c4b49612.jpeg)
   
