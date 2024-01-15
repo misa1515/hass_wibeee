@@ -2,10 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.2](https://github.com/luuuis/hass_wibeee/compare/v3.4.1...v3.4.2) (2024-01-15)
+
 
 ### Bug Fixes
 
-* **logging:** mask out WiFi SSID and secret before it goes into logs ([#73](https://github.com/luuuis/hass_wibeee/issues/73)) ([018bdd8](https://github.com/luuuis/hass_wibeee/commit/018bdd89f48305ffc02d70e6d661ee709128d11a))
+* mark sensors unavailable when polling fails ([#75](https://github.com/luuuis/hass_wibeee/issues/75)) ([435eed3](https://github.com/luuuis/hass_wibeee/commit/435eed3104df9ee119c9cb4ae392ce64055277f7))
+**logging:** mask out WiFi SSID and secret before it goes into logs ([#73](https://github.com/luuuis/hass_wibeee/issues/73)) ([018bdd8](https://github.com/luuuis/hass_wibeee/commit/018bdd89f48305ffc02d70e6d661ee709128d11a))
 
 ### [3.4.1](https://github.com/luuuis/hass_wibeee/compare/v3.4.0...v3.4.1) (2023-12-22)
 
