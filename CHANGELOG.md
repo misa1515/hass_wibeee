@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.3](https://github.com/luuuis/hass_wibeee/compare/v3.4.2...v3.4.3) (2024-01-26)
+
+
+### Bug Fixes
+
+* adds `/Wibeee/receiver` path for Local Push on older firmware ([#79](https://github.com/luuuis/hass_wibeee/issues/79)) ([4ff70ba](https://github.com/luuuis/hass_wibeee/commit/4ff70ba58fca08014a33110c60e7a5684938899a))
+
 ### [3.4.2](https://github.com/luuuis/hass_wibeee/compare/v3.4.1...v3.4.2) (2024-01-15)
 
 
