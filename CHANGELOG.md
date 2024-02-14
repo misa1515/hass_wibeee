@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.5.0](https://github.com/luuuis/hass_wibeee/compare/v3.4.3...v3.5.0) (2024-02-14)
+
+
+### Features
+
+* use values.xml api when polling sensor values ([#83](https://github.com/luuuis/hass_wibeee/issues/83)) ([6b18aea](https://github.com/luuuis/hass_wibeee/commit/6b18aeaf19d3beeb9cf423075de519025d28100c))
+
+
+### Bug Fixes
+
+* relax lxml requirement to increase for compatibility with older HA ([#84](https://github.com/luuuis/hass_wibeee/issues/84)) ([1cec76d](https://github.com/luuuis/hass_wibeee/commit/1cec76df094f75a3905c1bd04cb37bd5d20cadea))
+
 ### [3.4.3](https://github.com/luuuis/hass_wibeee/compare/v3.4.2...v3.4.3) (2024-01-26)
 
 
