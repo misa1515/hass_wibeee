@@ -16,6 +16,8 @@ Provides the following sensors, one for each clamp using `_L1`/`_L2`/`_L3` suffi
 | Sensor                                         | Unit  | Description       |
 | -----------------------------------------------|:------:|------------------|
 | `wibeee_<mac_addr>_active_energy`              | Wh    | Active Energy |
+| `wibeee_<mac_addr>_active_energy_produced`     | Wh    | Active Energy Produced |
+| `wibeee_<mac_addr>_active_energy_consumed`     | Wh    | Active Energy Consumed |
 | `wibeee_<mac_addr>_active_power`               | W     | Active Power |
 | `wibeee_<mac_addr>_apparent_power`             | VA    | Apparent Power |
 | `wibeee_<mac_addr>_capacitive_reactive_energy` | VArCh | Capacitive Reactive Energy |
