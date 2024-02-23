@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.6.0](https://github.com/luuuis/hass_wibeee/compare/v3.5.0...v3.6.0) (2024-02-23)
+
+
+### Features
+
+* add Active Energy Consumed/Produced sensors ([#88](https://github.com/luuuis/hass_wibeee/issues/88)) ([d6edf42](https://github.com/luuuis/hass_wibeee/commit/d6edf428e850fe359ed20313e20899206d4d1565))
+
 ## [3.5.0](https://github.com/luuuis/hass_wibeee/compare/v3.4.3...v3.5.0) (2024-02-14)
 
 
