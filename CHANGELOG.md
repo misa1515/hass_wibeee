@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.6.1](https://github.com/luuuis/hass_wibeee/compare/v3.6.0...v3.6.1) (2024-02-23)
+
+
+### Bug Fixes
+
+* disable Local Push for Active Energy Consumed/Produced ([#89](https://github.com/luuuis/hass_wibeee/issues/89)) ([5c648fc](https://github.com/luuuis/hass_wibeee/commit/5c648fcb9523d7d49d9be16f77d11cfe8dc460ed))
+
 ## [3.6.0](https://github.com/luuuis/hass_wibeee/compare/v3.5.0...v3.6.0) (2024-02-23)
 
 
